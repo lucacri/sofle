@@ -25,3 +25,9 @@
 
 #define EE_HANDS
 #define RGBLIGHT_LAYERS
+
+#if defined(OLED_FONT_H)
+#    undef OLED_FONT_H
+#endif
+
+#define OLED_FONT_H "keyboards/sofle/keymaps/lucacri/glcdfont.c"
