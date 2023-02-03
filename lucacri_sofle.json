@@ -1,5 +1,5 @@
 {
-  "name": "Sofle v2 RGB",
+  "name": "Lucacri_Sofle",
   "vendorProductId": 4231139975,
   "macros": [
     "{KC_LGUI,KC_LEFT}",
@@ -42,7 +42,7 @@
       "KC_F",
       "KC_G",
       "KC_NO",
-      "KC_LSFT",
+      "OSM(MOD_LSFT)",
       "KC_Z",
       "KC_X",
       "KC_C",
@@ -53,7 +53,7 @@
       "KC_LCTL",
       "KC_LALT",
       "KC_LGUI",
-      "MO(2)",
+      "OSL(2)",
       "KC_ENT",
       "KC_NO",
       "KC_BSPC",
@@ -87,7 +87,7 @@
       "KC_LCTL",
       "KC_RALT",
       "KC_RGUI",
-      "MO(3)",
+      "OSL(3)",
       "KC_SPC",
       "TG(1)",
       "KC_NO"
