@@ -1,44 +1,16 @@
-# Only compatible with sofle/keyhive firmware which adds an extra column of keys for encoder mapping.
+# Sofle Keyboard
 
-![SofleKeyboard version 2.1 RGB Keyhive](https://i.imgur.com/Oa6spvZ.png)
+qmk compile -kb luca/keyhive -km lucacri:avrdude-split-left && qmk compile -kb luca/keyhive -km lucacri:avrdude-split-right
 
-# Configuring VIA / Vial App
+## For the VIA setup
 
-This firmware will not auto-recognize until [PR #1060](https://github.com/the-via/keyboards/pull/1060) is accepted to the VIA keyboard database. For now you must install the new layout:
+First use the keymaps/lucacri/via_setup.json. Then apply the lucacri_sofle.json.
 
-1. Download [keyhive_sofle_rgb.json](https://raw.githubusercontent.com/the-via/keyboards/48372baae5ab451d752988121fa4f1dd47b2c1ce/src/sofle/keyhive_sofle_rgb.json).
-2. In the VIA app, select `File > Import Keymap` from the menu.
-3. Open the file you just downloaded.
+Once all is done, you can export a keymap.c by doing
 
-**You'll have to do this every time you use VIA or Vial until the PR is accepted.**
+```
+qmk via2json -kb luca/keyhive -km lucacri:avrdude-split-left -o keymaps/lucacri/keymap-c.json -l keymaps/lucacri/via-setup.json keymaps/lucacri/lucacri_sofle.json
 
-# Using with VIA
-* The default layouts should be loaded automatically.
-* Layouts can be backed up in VIA in the SAVE+LOAD section.
-* It is a good idea to Save Current Layout after you decide on your mapping.
-
-# Custom Features:
-
-### Rotary Encoder and VIA Features:
-* Fully remappable. Left encoder controls volume up/down/mute. Right encoder PGUP/PGDOWN.
-* Allows for live remapping of per-layer rotary encoder functions in VIA.
-* VIA support with **keyhive_via** keymap.
-
-# Compiling
-
-Make example for this keyboard (after setting up your build environment):
-
-    qmk compile  -kb sofle/keyhive -km lucacri:avrdude-split-left  && qmk compile  -kb sofle/keyhive -km lucacri:avrdude-split-right
-
-## Flashing
-
-Flash using the correct command below (or use QMK Toolbox). These commands can be mixed if, for example, you have an Elite C on the left and a pro micro on the right.
-
-Press reset button on the keyboard when asked.
-
-Disconnect the first half, connect the second one and repeat the process.
-
-    # for Pro Micro-based builds
-    qmk compile  -kb sofle/keyhive -km lucacri:avrdude-split-left  && qmk compile  -kb sofle/keyhive -km lucacri:avrdude-split-right
-
-See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+# go to https://jhelvy.shinyapps.io/qmkjsonconverter/ and upload keymaps/lucacri/keymap-c.json
+# take the file and rename the layers in keymap.c
+```
