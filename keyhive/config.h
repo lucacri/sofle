@@ -49,7 +49,7 @@
 #define SOFT_SERIAL_PIN D2
 
 // OLED settings
-#define OLED_TIMEOUT    8000
+#define OLED_TIMEOUT    60000
 #define OLED_BRIGHTNESS 90
 
 #define SPLIT_WPM_ENABLE
@@ -61,6 +61,7 @@
 #ifdef RGBLIGHT_ENABLE
 #    define RGB_DI_PIN D3
 #    define RGBLED_NUM 74
+#    define RGBLIGHT_SPLIT
 #    define RGBLED_SPLIT {37,37}
 #    define RGBLIGHT_LIMIT_VAL 100 // LED Brightness, high power draw may exceed the USB limitations of 0.6A and cause a crash.
 #    define RGBLIGHT_HUE_STEP  10
@@ -69,7 +70,7 @@
 #    define RGBLIGHT_LAYERS //Enable layer light indicators. Not required as updates are done in layer_state_set_user and led_update_user (+588).
 #    define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF
 // #    define RGBLIGHT_SLEEP //Turn off LEDs when computer sleeping (+72)
-
+// clang-format off
 //RGB LED Conversion macro from physical array to electric array (+146). This results in better looking animated effects.
 //First section is the LED matrix, second section is the electrical wiring order, and the third section is the desired mapping
 #    define LED_LAYOUT( \
@@ -94,5 +95,5 @@
   0,  9,  12, 21, 24, 33,     40, 49, 52, 61, 64, 73, \
       11, 22, 23, 34, 35,   38, 39, 50, 51, 62,       \
       10,       36,              37,       63        )
-
+// clang-format on
 #endif

@@ -1,6 +1,8 @@
 # Sofle Keyboard
 
+```
 qmk compile -kb luca/keyhive -km lucacri:avrdude-split-left && qmk compile -kb luca/keyhive -km lucacri:avrdude-split-right
+```
 
 ## For the VIA setup
 
