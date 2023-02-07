@@ -1,18 +1,35 @@
-# Sofle Keyboard
+# Sofle Keyboard - Keyhive version - Lucacri keymap
+
+## Installation instructions
+
+Clone this repository in `/keyboards/sofle/keymaps/lucacri`.
+
+## Compilation instructions
+
+Flash using the correct command below (or use QMK Toolbox). These commands can be mixed if, for example, you have an Elite C on the left and a pro micro on the right.
+
+Press reset button on the keyboard when asked.
+
+Disconnect the first half, connect the second one and repeat the process.
 
 ```
-qmk compile -kb luca/keyhive -km lucacri:avrdude-split-left && qmk compile -kb luca/keyhive -km lucacri:avrdude-split-right
+qmk compile -kb sofle/keyhive -km lucacri:avrdude-split-left && qmk compile -kb sofle/keyhive -km lucacri:avrdude-split-right
 ```
 
-## For the VIA setup
+## Keymaps
 
-First use the keymaps/lucacri/via_setup.json. Then apply the lucacri_sofle.json.
+To convert the `keymap.c` to a JSON that can be read by QMK Configurator:
 
-Once all is done, you can export a keymap.c by doing
-
+```bash
+qmk -v c2json -km lucacri -kb sofle --no-cpp keymap.c -o keymap.json
 ```
-qmk via2json -kb luca/keyhive -km lucacri:avrdude-split-left -o keymaps/lucacri/keymap-c.json -l keymaps/lucacri/via-setup.json keymaps/lucacri/lucacri_sofle.json
 
-# go to https://jhelvy.shinyapps.io/qmkjsonconverter/ and upload keymaps/lucacri/keymap-c.json
-# take the file and rename the layers in keymap.c
+and to go from QMK configurator JSON to keymap.c:
+
+```bash
+qmk json2c -o exported-keymap.c keymap.json
 ```
+
+an example of the keymap and layers is the following:
+
+![Layers](layers.png)
