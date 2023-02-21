@@ -1,6 +1,4 @@
-/* Copyright
- *   2021 solartempest
- *   2021 QMK
+/* Copyright 2021 Dane Evans
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,45 +13,121 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 #pragma once
-#include "config_common.h"
 
-// Key matrix size
-// Rows are doubled-up. Added extra column for rotary encoder VIA mapping.
-#define MATRIX_ROWS 10
-#define MATRIX_COLS 7
+// #define USE_MATRIX_I2C
 
-// wiring of each half
-#define MATRIX_ROW_PINS \
-    { C6, D7, E6, B4, B5 }
-#define MATRIX_COL_PINS \
-    { B6, B2, B3, B1, F7, F6, NO_PIN } // A virtual pin is needed for the encoder key matrix in via.
-#define MATRIX_ROW_PINS_RIGHT \
-    { C6, D7, E6, B4, B5 }
-#define MATRIX_COL_PINS_RIGHT \
-    { F6, F7, B1, B3, B2, B6, NO_PIN } // A virtual pin is needed for the encoder key matrix in via.
+/* Select hand configuration */
 
-#define DIODE_DIRECTION COL2ROW
+/// https://thomasbaart.nl/2018/12/01/reducing-firmware-size-in-qmk/
 
-#define DEBOUNCE 5
+#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET              // Activates the double-tap behavior
+#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 200U // Timeout window in ms in which the double tap can occur.
+// #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_LED GP17     // Specify a optional status led by GPIO number which blinks when entering the bootloader
 
-// Encoder support
-#define ENCODERS_PAD_A \
-    { F5 }
-#define ENCODERS_PAD_B \
-    { F4 }
-// #define ENCODERS_PAD_A_RIGHT      {  }
-// #define ENCODERS_PAD_B_RIGHT      {  }
-#define ENCODER_RESOLUTIONS \
-    { 4 }
+// #define MASTER_LEFT
+#define MASTER_RIGHT
+// #define EE_HANDS
 
-// #define ENCODER_RESOLUTIONS_RIGHT { 2 }  // Left encoder seems to have double-output issue but right does not.
+#define CUSTOM_FONT
 
-#define TAP_CODE_DELAY 10
+#define CUSTOM_LAYER_READ // if you remove this it causes issues - needs better guarding
 
-// Communication between sides
-#define SOFT_SERIAL_PIN D2
+#define TAPPING_FORCE_HOLD
+#ifdef TAPPING_TERM
+#    undef TAPPING_TERM
+#    define TAPPING_TERM 200
+#endif
+#define ENCODER_DIRECTION_FLIP
+
+#define RGBLIGHT_SLEEP
+//
+#define RGBLIGHT_LAYERS
+
+/* ws2812 RGB LED */
+#define RGB_DI_PIN D3
+
+#ifdef RGB_MATRIX_ENABLE
+#    define RGBLED_NUM 35 // Number of LEDs
+#    define RGBLED_NUM 35 // Number of LEDs
+#    define RGB_MATRIX_LED_COUNT RGBLED_NUM
+#endif
+
+#ifdef RGBLIGHT_ENABLE
+#    undef RGBLED_NUM
+
+// #define RGBLIGHT_EFFECT_BREATHING
+#    define RGBLIGHT_EFFECT_RAINBOW_MOOD
+// #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+// #define RGBLIGHT_EFFECT_SNAKE
+// #define RGBLIGHT_EFFECT_KNIGHT
+// #define RGBLIGHT_EFFECT_CHRISTMAS
+// #define RGBLIGHT_EFFECT_STATIC_GRADIENT
+// #define RGBLIGHT_EFFECT_RGB_TEST
+// #define RGBLIGHT_EFFECT_ALTERNATING
+// #define RGBLIGHT_EFFECT_TWINKLE
+
+#    define RGBLED_NUM 70
+// #define RGBLED_SPLIT
+#    define RGBLED_SPLIT \
+        { 35, 35 } // haven't figured out how to use this yet
+
+// #define RGBLED_NUM 30
+#    define RGBLIGHT_LIMIT_VAL 120
+#    define RGBLIGHT_HUE_STEP 10
+#    define RGBLIGHT_SAT_STEP 17
+#    define RGBLIGHT_VAL_STEP 17
+#endif
+
+#ifdef RGB_MATRIX_ENABLE
+#    define RGB_MATRIX_KEYPRESSES // reacts to keypresses
+// #   define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)
+#    define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
+#    define RGB_MATRIX_FRAMEBUFFER_EFFECTS
+// #   define RGB_MATRIX_LED_PROCESS_LIMIT (RGB_MATRIX_LED_COUNT + 4) / 5 // limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness)
+// #   define RGB_MATRIX_LED_FLUSH_LIMIT 16 // limits in milliseconds how frequently an animation will update the LEDs. 16 (16ms) is equivalent to limiting to 60fps (increases keyboard responsiveness)
+#    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150 // limits maximum brightness of LEDs to 150 out of 255. Higher may cause the controller to crash.
+
+#    define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_GRADIENT_LEFT_RIGHT
+
+#    define RGB_MATRIX_HUE_STEP 8
+#    define RGB_MATRIX_SAT_STEP 8
+#    define RGB_MATRIX_VAL_STEP 8
+#    define RGB_MATRIX_SPD_STEP 10
+
+/* Disable the animations you don't want/need.  You will need to disable a good number of these    *
+ * because they take up a lot of space.  Disable until you can successfully compile your firmware. */
+// #   undef ENABLE_RGB_MATRIX_ALPHAS_MODS
+// #   undef ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
+// #   undef ENABLE_RGB_MATRIX_BREATHING
+// #   undef ENABLE_RGB_MATRIX_CYCLE_ALL
+// #   undef ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
+// #   undef ENABLE_RGB_MATRIX_CYCLE_UP_DOWN
+// #   undef ENABLE_RGB_MATRIX_CYCLE_OUT_IN
+// #   undef ENABLE_RGB_MATRIX_CYCLE_OUT_IN_DUAL
+// #   undef ENABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON
+// #   undef ENABLE_RGB_MATRIX_DUAL_BEACON
+// #   undef ENABLE_RGB_MATRIX_RAINBOW_BEACON
+// #   undef ENABLE_RGB_MATRIX_RAINBOW_PINWHEELS
+// #   undef ENABLE_RGB_MATRIX_RAINDROPS
+// #   undef ENABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS
+// #   undef ENABLE_RGB_MATRIX_TYPING_HEATMAP
+// #   undef ENABLE_RGB_MATRIX_DIGITAL_RAIN
+// #   undef ENABLE_RGB_MATRIX_SOLID_REACTIVE
+// #   undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
+// #   undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
+// #   undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE
+// #   undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS
+// #   undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS
+// #   undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS
+// #   undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS
+// #   undef ENABLE_RGB_MATRIX_SPLASH
+// #   undef ENABLE_RGB_MATRIX_MULTISPLASH
+// #   undef ENABLE_RGB_MATRIX_SOLID_SPLASH
+// #   undef ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
+#endif
+
+// LUCA CHANGES BELOW
 
 // OLED settings
 #undef OLED_TIMEOUT
@@ -64,72 +138,16 @@
 #define SPLIT_OLED_ENABLE
 #define SPLIT_TRANSPORT_MIRROR
 
-// Add RGB underglow
-// by defining in the keyboard, incompatible keymaps will fail to compile.
-#ifdef RGBLIGHT_ENABLE
-#    define RGB_DI_PIN D3
-#    define RGBLED_NUM 74
-#    undef RGBLIGHT_SPLIT
-#    define RGBLIGHT_SPLIT
-#    undef RGBLED_SPLIT
-#    define RGBLED_SPLIT \
-        { 37, 37 }
-#    define RGBLIGHT_LIMIT_VAL 100 // LED Brightness, high power draw may exceed the USB limitations of 0.6A and cause a crash.
-#    define RGBLIGHT_HUE_STEP 10
-#    define RGBLIGHT_SAT_STEP 17
-#    define RGBLIGHT_VAL_STEP 17
-#    define RGBLIGHT_LAYERS // Enable layer light indicators. Not required as updates are done in layer_state_set_user and led_update_user (+588).
-#    define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF
-// #    define RGBLIGHT_SLEEP //Turn off LEDs when computer sleeping (+72)
-// clang-format off
-//RGB LED Conversion macro from physical array to electric array (+146). This results in better looking animated effects.
-//First section is the LED matrix, second section is the electrical wiring order, and the third section is the desired mapping
-#    define LED_LAYOUT( \
-  L00,  L01,  L02,  L03,  L04,  L05,          L08,  L09,  L010, L011, L012, L013, \
-  L10,      L12,      L14,                              L19,      L111,     L113, \
-  L20,  L21,  L22,  L23,  L24,  L25,          L28,  L29,  L210, L211, L212, L213, \
-  L30,  L31,  L32,  L33,  L34,  L35,          L38,  L39,  L310, L311, L312, L313, \
-  L40,      L42,      L44,                              L49,      L411,     L413, \
-  L50,  L51,  L52,  L53,  L54,  L55,          L58,  L59,  L510, L511, L512, L513, \
-          L62,  L63,  L64,  L65,  L66,      L67,  L68,  L69,  L610, L611,         \
-      L71,                  L76,                  L77,                  L712     )\
-  { \
-    L14,L12,L10,L40,L42,L44,L71,L76,L66,L65,L55,L35,L25,L05,L04,L24,L34,L54,L64,L63,L53,L33,L23,L03,L02,L22,L32,L52,L62,L51,L31,L21,L01,L00,L20,L30,L50,L19,L111,L113,L413,L411,L49,L712,L77,L67,L68,L58,L38,L28,L08,L09,L29,L39,L59,L69,L610,L510,L310,L210,L010,L011,L211,L311,L511,L611,L512,L312,L212,L012,L013,L213,L313,L513, \
-  }
-//RGB LED logical order map
-#    define RGBLIGHT_LED_MAP LED_LAYOUT( \
-  5,  6,  17, 18, 29, 30,     43, 44, 55, 56, 67, 68, \
-  4,    16,   28,                     45,   57,   69, \
-  3,  7,  15, 19, 27, 31,     42, 46, 54, 58, 66, 70, \
-  2,  8,  14, 20, 26, 32,     41, 47, 53, 59, 65, 71, \
-  1,    13,   25,                     48,   60,   72, \
-  0,  9,  12, 21, 24, 33,     40, 49, 52, 61, 64, 73, \
-      11, 22, 23, 34, 35,   38, 39, 50, 51, 62,       \
-      10,       36,              37,       63        )
-// clang-format on
-#endif
-
-// Disabled to save space
-// #define NO_ACTION_ONESHOT  // 332
-#define NO_ACTION_MACRO    // 0
-#define NO_ACTION_FUNCTION // 0
-#define DISABLE_LEADER     // 0
-
 #if defined(OLED_FONT_H)
 #    undef OLED_FONT_H
 #endif
 
-#define OLED_FONT_H "keyboards/sofle/keymaps/lucacri/glcdfont.c"
-
-// #define LAYER_STATE_8BIT
+#define OLED_FONT_H "keyboards/sofle/keymaps/lucacri_rgb/glcdfont.c"
 
 #define ONESHOT_TAP_TOGGLE 5 /* Tapping this number of times holds the key until tapped once again. */
 #define ONESHOT_TIMEOUT 5000 /* Time (in ms) before the one shot key is released */
-// #define RGBLIGHT_SLEEP
-// #define RGB_DISABLE_TIMEOUT 300000     // number of milliseconds to wait until rgb automatically turns off
-// #define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 
-#define EE_HANDS
+#define MASTER_LEFT
 #define RGBLIGHT_LAYERS
 
 #define SPLIT_LAYER_STATE_ENABLE
@@ -141,11 +159,6 @@
 #define SPLIT_POINTING_ENABLE
 #define POINTING_DEVICE_RIGHT
 // #define MOUSE_EXTENDED_REPORT
-#define PIMORONI_TRACKBALL_SCALE 25
+// #define PIMORONI_TRACKBALL_SCALE 25
 #define POINTING_DEVICE_TASK_THROTTLE_MS 8
-
-// #define OLED_TIMEOUT 8000
-
-#define MASTER_RIGHT
-
-// #define POINTING_DEVICE_DEBUG
+#define POINTING_DEVICE_DEBUG

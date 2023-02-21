@@ -43,6 +43,7 @@
 //     oled_write_ln_P(PSTR("CPSLK"), led_usb_state.caps_lock);
 //     oled_write_ln_P(PSTR("Luca"),false);
 // }
+#include QMK_KEYBOARD_H
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return OLED_ROTATION_270;

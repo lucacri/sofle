@@ -1,12 +1,15 @@
 {
 	"folders": [
-        {
-            "path": "../../../luca"
-        },
-        {
-            "path": "../.."
-        }
-    ],
+		{
+			"path": "../../../luca"
+		},
+		{
+			"path": "../.."
+		},
+		{
+			"path": "../../../.."
+		}
+	],
 	"settings": {
 		"files.associations": {
 			"*.h": "c",

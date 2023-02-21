@@ -14,6 +14,8 @@ Disconnect the first half, connect the second one and repeat the process.
 
 ```
 qmk compile -kb sofle/keyhive -km lucacri:avrdude-split-left && qmk compile -kb sofle/keyhive -km lucacri:avrdude-split-right
+
+qmk compile -kb sofle/rev1 -km lucacri:avrdude-split-left && qmk compile -kb sofle/rev1 -km lucacri:avrdude-split-right
 ```
 
 ## Keymaps
