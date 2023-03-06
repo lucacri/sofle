@@ -1,8 +1,8 @@
-# Sofle Keyboard - Keyhive version - Lucacri keymap
+# Sofle Keyboard - RGB version with Pimoroni Trackball - Lucacri keymap
 
 ## Installation instructions
 
-Clone this repository in `/keyboards/sofle/keymaps/lucacri`.
+Clone this repository in `/keyboards/sofle/keymaps/lucacri_rgb`.
 
 ## Compilation instructions
 
@@ -13,9 +13,7 @@ Press reset button on the keyboard when asked.
 Disconnect the first half, connect the second one and repeat the process.
 
 ```
-qmk compile -kb sofle/keyhive -km lucacri:avrdude-split-left && qmk compile -kb sofle/keyhive -km lucacri:avrdude-split-right
-
-qmk compile -kb sofle/rev1 -km lucacri:avrdude-split-left && qmk compile -kb sofle/rev1 -km lucacri:avrdude-split-right
+qmk flash -kb sofle/rev1 -km lucacri_rgb -e CONVERT_TO=kb2040 -j 0 && qmk flash -kb sofle/rev1 -km lucacri_rgb -e CONVERT_TO=kb2040 -j 0
 ```
 
 ## Keymaps
@@ -23,7 +21,7 @@ qmk compile -kb sofle/rev1 -km lucacri:avrdude-split-left && qmk compile -kb sof
 To convert the `keymap.c` to a JSON that can be read by QMK Configurator:
 
 ```bash
-qmk -v c2json -km lucacri -kb sofle --no-cpp keymap.c -o keymap.json
+qmk -v c2json -km lucacri_rgb -kb sofle/rev1 --no-cpp keymap.c -o keymap.json
 ```
 
 and to go from QMK configurator JSON to keymap.c:
