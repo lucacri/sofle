@@ -162,3 +162,10 @@
 //  #define PIMORONI_TRACKBALL_SCALE 25
 #define POINTING_DEVICE_TASK_THROTTLE_MS 8
 #define POINTING_DEVICE_DEBUG
+
+
+enum sofle_layers { _DEFAULTS = 0,
+                    _QWERTY = 0,                
+                    _SYMBOLS,
+                     _MOUSE,
+                    _MOVE };

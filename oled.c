@@ -45,6 +45,12 @@
 // }
 #include QMK_KEYBOARD_H
 
+// enum sofle_layers { _DEFAULTS = 0,
+//                     _QWERTY = 0,                
+//                     _SYMBOLS,
+//                      _MOUSE,
+//                     _MOVE };
+
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return OLED_ROTATION_270;
 }
@@ -114,19 +120,19 @@ void render_mod_status(uint8_t modifiers) {
     }
     oled_write_ln_P(PSTR("LAYER"), false);
     switch (get_highest_layer(layer_state)) {
-        case 0: // _QWERTY
+        case _QWERTY: // _QWERTY
             oled_write_ln_P(PSTR("Base"), false);
             oled_write_ln_P(PSTR(""), false);
             break;
-        case 1: // _COLEMAK
+        case _MOUSE: // _COLEMAK
             oled_write_ln_P(PSTR("Mouse"), false);
             oled_write_ln_P(PSTR(""), false);
             break;
-        case 2:
+        case _SYMBOLS:
             oled_write_ln_P(PSTR("Symbols"), false);
             oled_write_ln_P(PSTR(""), false);
             break;
-        case 3:
+        case _MOVE:
             oled_write_ln_P(PSTR("Move"), false);
             oled_write_ln_P(PSTR(""), false);
             break;

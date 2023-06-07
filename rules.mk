@@ -20,7 +20,7 @@ KEY_OVERRIDE_ENABLE = yes
 
 WPM_ENABLE = yes					# WPM counter for typing-speed-reactive keyboard pets (+782)
 
-POINTING_DEVICE_ENABLE = yes
+POINTING_DEVICE_ENABLE = no
 POINTING_DEVICE_DRIVER = pimoroni_trackball
 
 SWAP_HANDS_ENABLE = no

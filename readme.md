@@ -33,3 +33,7 @@ qmk json2c -o exported-keymap.c keymap.json
 an example of the keymap and layers is the following:
 
 ![Layers](layers.png)
+
+### Update the comments in the keymap.c
+
+`keymapviz -r keymap.c`
