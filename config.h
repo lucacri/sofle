@@ -25,10 +25,6 @@
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 200U // Timeout window in ms in which the double tap can occur.
 // #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_LED GP17     // Specify a optional status led by GPIO number which blinks when entering the bootloader
 
-// #define MASTER_LEFT
-#define MASTER_RIGHT
-// #define EE_HANDS
-
 #define CUSTOM_FONT
 
 #define CUSTOM_LAYER_READ // if you remove this it causes issues - needs better guarding
@@ -134,10 +130,6 @@
 #define OLED_TIMEOUT 60000
 #define OLED_BRIGHTNESS 90
 
-#define SPLIT_WPM_ENABLE
-#define SPLIT_OLED_ENABLE
-#define SPLIT_TRANSPORT_MIRROR
-
 #if defined(OLED_FONT_H)
 #    undef OLED_FONT_H
 #endif
@@ -147,9 +139,12 @@
 #define ONESHOT_TAP_TOGGLE 5 /* Tapping this number of times holds the key until tapped once again. */
 #define ONESHOT_TIMEOUT 5000 /* Time (in ms) before the one shot key is released */
 
-#define MASTER_LEFT
+#define MASTER_RIGHT
 #define RGBLIGHT_LAYERS
 
+#define SPLIT_WPM_ENABLE
+#define SPLIT_OLED_ENABLE
+#define SPLIT_TRANSPORT_MIRROR
 #define SPLIT_LAYER_STATE_ENABLE
 #define SPLIT_TRANSPORT_MIRROR
 #define SPLIT_MODS_ENABLE
@@ -158,14 +153,14 @@
 #define POINTING_DEVICE_ROTATION_90
 #define SPLIT_POINTING_ENABLE
 #define POINTING_DEVICE_RIGHT
-// #define MOUSE_EXTENDED_REPORT
-//  #define PIMORONI_TRACKBALL_SCALE 25
 #define POINTING_DEVICE_TASK_THROTTLE_MS 8
 #define POINTING_DEVICE_DEBUG
 
+#define SPLIT_USB_DETECT
+#define SPLIT_USB_TIMEOUT 2000
+#define SPLIT_USB_TIMEOUT_POLL 10
+#define SPLIT_WATCHDOG_ENABLE
+#define SPLIT_WATCHDOG_TIMEOUT 3000
 
-enum sofle_layers { _DEFAULTS = 0,
-                    _QWERTY = 0,                
-                    _SYMBOLS,
-                     _MOUSE,
-                    _MOVE };
+#define TAP_CODE_DELAY 10
+#define ENCODER_MAP_KEY_DELAY 10
